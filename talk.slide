@@ -1,0 +1,147 @@
+Hello, Gophers
+Philly GoMeetup
+13 Aug 2014
+
+Jon Wear
+DramaFever.com
+@genghisjahn
+
+
+* If you're new(ish) to Go, make sure you are using...
+
+*go* *fmt* - Formats you code as Rob Pike intended
+
+*go* *import* - Manages your standard library imports for your source files
+
+*go* *test* - Runs your tests
+
+* More on go test
+
+go test - Runs all the tests in the directory
+go test <filename> runs tests in a specific file
+
+You get an "OK" or an error message
+
+Yawn...
+
+* But wait, there's more
+
+*go* *test* *-v* 
+-Gives you some more info about the tests
+
+*go* *test* *-coverprofile=cover.out*    
+-Profiles your code and saves it to a file
+
+*go* *tool* *cover* *-func=cover.out*    
+-Gives a break down of % covered for each function
+
+*go* *tool* *cover* *-html=cover.out* 
+-Gives a HTML view of the source file, with color coded coverage
+
+*go* *test* *-covermode=count* *-coverprofile=count.out* 
+-Profiles your code and counts how often each line is tested
+
+*go* *tool* *cover* *-html=count.out* 
+-Shows an HTML heat map for each line's code coverage
+
+* Some basics from the standard library
+
+*import* *flag*
+
+Set this in vars up top
+
+ httpAddr = flag.String("http", "www.order-demo.com:8090", "Server address")
+
+Call this in your init() of main()
+
+ flag.Parse()
+
+You have a command line argument, or a default if one wasn't provided
+
+
+* Simple Web Servers
+
+ http.HandleFunc("/", homeHandler)
+
+ http.ListenAndServe("localhost:8080", nil)
+
+
+ homeHandler(w http.ResponseWriter, r *http.Request)
+
+* Templates
+
+There's a lot you can do with the HTML templating...
+
+From a template file (HTML):
+
+ <title>{{.Title}}</title>
+
+From inside the Home Handler
+
+ p := &Page{Title: "Place an Order!", Label: "Place an Order", LoadTime: time.Now().Local()}
+ t, _ := template.ParseFiles("template1.html")
+ t.Execute(w, p)
+
+
+* Static Conent
+
+I had some trouble adding in Twitter Bootstrap
+
+Create direcotry and a special handler for 'resources'
+
+ http.Handle("/resources/", http.StripPrefix("/resources/", http.FileServer(http.Dir("resources"))))
+
+
+* Functions are First Class Citizens
+
+Function signature as a type
+
+ type fnMimAttack func(oMsg SignedMessage) ([]byte, int)
+
+This type can now be passed as an argument to another function...
+
+ func ProcessAttack(oMsg SignedMessage, fnAttack fnMimAttack) ([]byte, int)
+
+like so...
+
+ result, status := ProcessAttack(oMsg, ProcessDelayRepeatOrder)
+
+
+
+* Maps - Go has Hash Tables
+
+*map[KeyType]ValueType*
+ 
+  var m map[string]int //(value of m is nil)
+  m = make(map[string]int) //Now it's initialized
+
+  m["answer"] = 42
+  answer := m["answer"]
+  wrong :=m ["other"] //returns 0, the default value of an int
+
+More info:
+
+[[http://blog.golang.org/go-maps-in-action][http://blog.golang.org/go-maps-in-action]]
+
+* Specifics of the App
+
+We have a client that wants to call a server
+The client sends up an order to buy some shares
+The server returns with a result of the request
+
+We don't want the orders to be tampered with by MiM
+
+* I'm talking 'bout the Man in the Middle
+
+Let's look at some code
+
+* Links
+
+Slides for this talk:
+[[http://bit.ly/gomeetaug14][http://bit.ly/gomeetaug14]]
+
+Goauth code is on github
+[[https://github.com/genghisjahn/goauth][https://github.com/genghisjahn/goauth]]
+
+A Tour of Go
+[[http://tour.golang.org/#1][http://tour.golang.org/#1]]
