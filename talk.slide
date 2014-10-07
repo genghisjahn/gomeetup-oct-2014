@@ -14,7 +14,9 @@ DramaFever.com
 *go* *import* - Manages your standard library imports for your source files
 
 * Example Go code
- 
+
+//http://play.golang.org/p/Cj-ALjlGO-
+
 .play example.go
 
 * Links
