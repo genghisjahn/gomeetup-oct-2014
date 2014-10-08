@@ -62,11 +62,19 @@ You can put them in
 	
 	func init()
 
+Keep in mind there can be more than one init().
+
 You can put them in 
 	
 	func main()
 
 When do things get run?
+
+1. vars are initialized first.
+2. init() (however many there are)
+	1.  Even if there is no main(), init() will run.
+3. main()
+
 [[http://play.golang.org/p/dvHymTy73F][http://play.golang.org/p/dvHymTy73F]]
 
 
