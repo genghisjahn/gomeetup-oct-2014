@@ -62,8 +62,6 @@ You can put them in
 	
 	func init()
 
-Keep in mind there can be more than one init().
-
 You can put them in 
 	
 	func main()
