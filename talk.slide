@@ -56,6 +56,19 @@ Call them like this:
 
 posArgs would then cotain three string elements "mundane,average,mediocre"
 
+* Where to put them?
+
+You can put them in 
+	
+	func init()
+
+You can put them in 
+	
+	func main()
+
+When do things get run?
+[[http://play.golang.org/p/dvHymTy73F][http://play.golang.org/p/dvHymTy73F]]
+
 
 * gcfg (Go Config)
 
