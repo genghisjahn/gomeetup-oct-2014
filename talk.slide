@@ -13,19 +13,77 @@ DramaFever.com
 
 *go* *import* - Manages your standard library imports for your source files
 
-* Example Go code
 
-//http://play.golang.org/p/Cj-ALjlGO-
+* Two Packages
 
-.play example.go
+*Flag* is part of the standard library.
+
+[[http://golang.org/pkg/flag/][http://golang.org/pkg/flag/]]
+
+*Go* *Config*
+
+Is a separate download that can be found here:
+[[https://code.google.com/p/gcfg/][https://code.google.com/p/gcfg/]]
+
+(Author: Péter Surányi speter.go1@gmail.com)
+
+* Flag Package
+
+You can pull in named arguments like this:
+
+.code example.go /^func NamedFlags1/,/^}/
+
+
+You can also pull in named arguments like this:
+
+.code example.go /^func NamedFlags2/,/^}/
+
+Call it like this:
+
+	PeopleInfo -name="Bill" -age=35 -honest=true
+
+Flag values can be strings,ints or bools.
+
+* Flag Package
+
+You can also pull positional arguments
+
+.code example.go /^func PosArgs/,/^}/
+
+Call them like this:
+
+	PeopleInfo -name="Bill" -age=35 -honest=true mundane average mediocre
+
+posArgs would then cotain three string elements "mundane,average,mediocre"
+
+
+* gcfg (Go Config)
+
+You have a *Config.gcfg* file:
+
+	; Comment line
+	[section]
+	name = value # Another comment
+	flag # implicit value for bool is true
+
+You have a struct & then you read in the data like so:
+
+.code example.go /^func Config1/,/^}/
+
+You call the ReadInfo method and populate the struct with values from the config file.
+
+
+* Now for the code...
+
+Let's look at a sample app that uses both packages
 
 * Links
 
 Slides for this talk:
 [[http://bit.ly/gomeetaug14][http://bit.ly/gomeetaug14]]
 
-Goauth code is on github
-[[https://github.com/genghisjahn/goauth][https://github.com/genghisjahn/goauth]]
+FlagConfigFunc code is on github
+[[https://github.com/genghisjahn/flagconfigfunc][https://github.com/genghisjahn/flagconfigfunc]]
 
 A Tour of Go
 [[http://tour.golang.org/#1][http://tour.golang.org/#1]]
